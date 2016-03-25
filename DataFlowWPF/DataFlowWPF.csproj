@@ -65,6 +65,7 @@
     <Compile Include="Interfaces\ITickerViewModel.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ITicker.cs" />
+    <Compile Include="Utilities\Beeper.cs" />
     <Compile Include="ViewModels\Command.cs" />
     <Compile Include="Utilities\Guard.cs" />
     <Content Include="Notes.txt" />

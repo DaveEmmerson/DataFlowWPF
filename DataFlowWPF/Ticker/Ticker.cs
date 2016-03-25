@@ -39,7 +39,11 @@ namespace DataFlowWPF
             _eventsAgent = new BroadcastBlock<TickerEvent>(tickerEvent => tickerEvent);
             _eventsAgentSource = _eventsAgent;
             setTimerSpeed(speed);
-            _timer.Elapsed += (sender, e) => _eventsAgent.Post(new TickerEvent());
+            _timer.Elapsed += (sender, e) =>
+            {
+                _eventsAgent.Post(new TickerEvent());
+                Beeper.PlayBeep(440, 100);
+            };
         }
 
         // maybe should be something like:
@@ -113,7 +117,10 @@ namespace DataFlowWPF
         //      Doing it this way does add a lot of code, but it was easy because VS can auto-generate them.
         //      The other option would be to expose the agents as readonly public properties, which would be fine.
         //      It would just mean losing the ability to do viewModel.LinkTo(logger) or whatever, you'd need to do:
-        //      viewModel.MessageAgent.LinkTo(logger.Agent)
+        //      viewModel.MessageAgent.LinkTo(logger.Agent
+        //
+        // Turns out this is like a delegate in Pony, if I understand the tutorial that is :)
+
 
         #region ITargetBlock
 

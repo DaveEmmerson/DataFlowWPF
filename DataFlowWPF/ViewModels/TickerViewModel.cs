@@ -21,10 +21,8 @@ namespace DataFlowWPF
                 _log.Verbose($"Setting speed to {value}");
                 Set(ref _speed, value);
 
-                if(_messagesAgent.Completion.IsCompleted || !_messagesAgent.Post(new ChangeSpeedMessage(value)))
-                    _log.Verbose("Could not post to MessagesAgent.");
-
-
+                // this isn't faulted if the things liked to it are faulted (like the Ticker...)
+                _messagesAgent.Post(new ChangeSpeedMessage(value));
             }
         }
 
