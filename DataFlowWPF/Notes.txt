@@ -1,0 +1,23 @@
+﻿    // A slider (or any control?) with a bound value only updates based on its source.
+    // 
+    // If you don't immediately update _speed here, when you drag the slider
+    // it doesn't update its visible state. The binding updates the property,
+    // then reads it back in its next operation. That makes sense really,
+    // because the bound property may have validation and may have prevented
+    // the value from being set or may have set it to something else (like a maximum.)
+    //
+    // You can do the setting from an agent, as in the second block below,
+    // but if the agent is slow or has a lot of contention, then it will prevent the UI
+    // from updating - at least for a slider - but it would make sense for any UI element.
+    //
+    // Having an agent prevents multiple threads from clashing.
+    // If you have non-UI threads interacting with the ViewModel, then you need to handle concurrency.
+    // The ViewModel's properties should possibly be used only by the UI thread.
+    // That could be by convention or enforced.
+    // Then the ViewModel would simply be a model for the view...
+    //
+    // How do you deal with the fact that the UI can be changing the state
+    // while the non-UI stuff is using it?
+    // You can disable buttons (command's canExecute), but is that foolproof?
+    // That's like being back to needing to lock on something...
+    // but that's the whole point of using the agent in the first place, to avoid that.

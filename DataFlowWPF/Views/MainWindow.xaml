@@ -1,0 +1,35 @@
+﻿<Window x:Class="DataFlowWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataFlowWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:LogViewModel}">
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <TextBlock Background="AliceBlue" FontFamily="Consolas" Text="{Binding Text}" />
+            </ScrollViewer>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:TickerViewModel}">
+            <StackPanel Background="YellowGreen" Grid.Row="1" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="5" VerticalAlignment="Center">
+                    <Button Content="Start" Command="{Binding StartCommand}" MinWidth="50"/>
+                    <Button Content="Stop" Command="{Binding StopCommand}" Margin="10 0 15 0" MinWidth="50" />
+                    <Label>Speed</Label>
+                    <Slider TickFrequency="1" Margin="5" Width="200" Minimum="0" Maximum="11" x:Name="SpeedSlider" Value="{Binding Speed, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox MinWidth="30" Text="{Binding ElementName=SpeedSlider, Path=Value, StringFormat=0.0, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" Content="{Binding LogViewModel}" />
+        <ContentControl Grid.Row="1" Content="{Binding TickerViewModel}" />
+    </Grid>
+</Window>
